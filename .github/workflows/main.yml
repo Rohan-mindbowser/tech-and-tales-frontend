@@ -35,4 +35,4 @@ jobs:
           aws-region: eu-north-1
 
       - name: ☁️ Deploy to S3
-        run: aws s3 sync ./build s3://tech-and-tales-frontend --delete
+        run: aws s3 sync ./dist s3://tech-and-tales-frontend --delete
