@@ -1,35 +1,38 @@
-name: Deploy React App to S3
+name: 🚀 Deploy React App to S3
 
 on:
   push:
     branches:
-      - master
+      - master # or "main" if that's your default branch
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v1
+      - name: 📥 Checkout code
+        uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v1
+      - name: 🧱 Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: "24.2.0"
+          node-version: 20 # Use LTS version (24 is not LTS yet)
 
-      - name: Install dependencies
-        run: npm install
+      - name: 📦 Install dependencies
+        run: npm ci # Faster and more deterministic than npm install
 
-      - name: Build the React app
+      - name: 🛠️ Build the React app
         run: npm run build
 
-      - name: Configure AWS credentials
+      - name: 🧾 List build directory (for debug)
+        run: ls -la ./build
+
+      - name: 🔐 Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-north-1
 
-      - name: Deploy to S3
-        run: aws s3 sync build s3://tech-and-tales-frontend --delete
+      - name: ☁️ Deploy to S3
+        run: aws s3 sync ./build s3://tech-and-tales-frontend --delete
