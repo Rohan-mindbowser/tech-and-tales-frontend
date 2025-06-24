@@ -4,7 +4,7 @@ function App() {
 
   return (
     <>
-      <div>Hello sanket 🚀</div>
+      <div>Hello vimu 🚀</div>
     </>
   )
 }
