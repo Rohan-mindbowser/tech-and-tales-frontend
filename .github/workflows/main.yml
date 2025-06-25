@@ -21,11 +21,13 @@ jobs:
       - name: 📦 Install dependencies
         run: npm i --legacy-peer-deps # Faster and more deterministic than npm install
 
-      - name: 🛠️ Build the React app
-        run: npm run build
+      - name: 🛠️ Build and export the Next.js app
+        run: |
+          npm run build
+          npm run export
 
-      - name: 🧾 List build directory (for debug)
-        run: ls -la ./dist
+      - name: 🧾 List out directory (for debug)
+        run: ls -la ./out
 
       - name: 🔐 Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -35,4 +37,4 @@ jobs:
           aws-region: eu-north-1
 
       - name: ☁️ Deploy to S3
-        run: aws s3 sync ./dist s3://tech-and-tales-frontend --delete
+        run: aws s3 sync ./out s3://tech-and-tales-frontend --delete
