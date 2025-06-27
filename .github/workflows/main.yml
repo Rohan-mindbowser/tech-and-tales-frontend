@@ -25,7 +25,6 @@ jobs:
         run: npm run build
 
       - name: 🧾 List build directory (for debug)
-        run: ls -la ./build
         run: ls -la ./dist
 
       - name: 🔐 Configure AWS credentials
